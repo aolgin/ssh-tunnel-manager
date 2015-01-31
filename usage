@@ -1,0 +1,51 @@
+NAME
+	tunnel_mgr -- SSH Tunneling Manager script
+
+SYNOPSIS
+	tunnel_manager  [-c] 
+					[-l] 
+					[-h] 
+					[name]
+
+DESCRIPTION
+	tunnel_mgr is a command-line tool that implements the built-in SSH client to create, manage, and run port forwarding and SSH tunneling. It is a script written for bash.
+
+	It was inspired from Tynsoe.org's SSH Tunnel Manager, and meant to be akin to a command-line version of it that was still more user-friendly than using the pure ssh program by itself.
+
+	tunnel_mgr will read only the first argument given to it. If no arguments are supplied, then the user will be taken through a setup process to create a new configuration, and then will be connected. The option to save your new configuration under an user-defined name will be given along the process.
+
+	The optional arguments are as follows:
+
+	name		Searches your configuration file for the specified configuration name, and if it finds it, then it will grab those settings and run the tunneler with them. Otherwise, and error will be thrown.
+
+	-c 				Wipe the configurations file clean. A fresh version will be recreated upon re-run
+
+	-h				Opens up the this help prompt
+
+	-l 				Prints out a formatted, human-readable list of the current configurations. Configuration name, server connection, username, and machines tunneled to are displayed for each configuration.
+
+	All configurations are stored in the configurations.csv, which can be found in the local bin directory of this script. If this file does not exist, running this script will create it. To make any configuration modifications, simply edit the file and maintain the formatting.
+
+	For the moment, tunnel_mgr will ignore any arguments past the first given to it.
+
+FILES
+	tunnel_mgr.sh
+			The bash script itself. See above for usage and more information.
+
+	usage.txt
+			This documentation file detailing how to use the tunnel_mgr script and some other information about the implementation of it.
+
+	README.md
+			A readme file for Github that covers much of the same information as this file.
+
+	bin/configurations.csv
+			A file containing any configurations the user has saved.
+
+SEE ALSO
+	ssh - http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh+1
+	SSH Tunnel Manager - http://projects.tynsoe.org/en/stm/
+
+AUTHORS
+	Adam Olgin is the sole author of this script.
+
+January 31, 2015
