@@ -3,7 +3,7 @@
 #########################################
 # Script to setup and run an SSH Tunnel #
 # Written by Adam Olgin, 1/29/15 		#
-# Last updated on 1/31 by Adam Olgin    #
+# Last updated on 2/5 by Adam Olgin    #
 #########################################
 
 # This is a more complete version of tunnel_script.sh
@@ -15,7 +15,10 @@ WRK_DTY="" 		# the uglier output that ssh will end up using
 WRK_CLN="" 		# the cleaner output the user will see
 POSTRUN="Your connection has ended. Thank you for using this script. Goodbye!"
 WARNING="IMPORTANT: Upon logging in, it will appear like nothing has happened. DON'T WORRY! That just means you are connected. No output will show up upon connecting successfully."
-CONFIG_FILE="bin/configurations.csv"	# The relative path to the configurations file
+DIR="${BASH_SOURCE[0]}" # the location of this script
+DIR=${DIR%\/tunnel_mgr.sh} # just grab the path from it, not the actual filename
+CONFIG_FILE="$DIR/conf/configurations.csv"	# The relative path to the configurations file
+STOPPING="Press Ctrl+C or close this window to exit this session."
 
 clear
 
@@ -28,8 +31,8 @@ fi
 
 # if the configurations file doesn't exist, create one
 if [ ! -e $CONFIG_FILE ]; then
-	if [ ! -e "bin" ]; then
-		mkdir bin
+	if [ ! -d "conf" ]; then
+		mkdir $DIR/conf
 	fi
 	echo "No $CONFIG_FILE found. Creating a new one..."
 	touch $CONFIG_FILE
@@ -97,6 +100,7 @@ if [ -z $ARG ]; then
 	clear
 	echo "SSH connection to '$SERV' via port $SSHP with login: '$U_NAME'"
 	echo -e "Tunneling to the following machine(s):\n$WRK_CLN\n\n$WARNING"
+	echo "$STOPPING"
 
 	# Run it
 	ssh -N -p $SSHP -c 3des $U_NAME@$SERV $WRK_DTY # NOW CONNECTING
@@ -105,7 +109,7 @@ if [ -z $ARG ]; then
 
 # asking for help/usage, then exit
 elif [ "$ARG" == "-h" ]; then
-	cat usage
+	cat $DIR/usage
 	echo
 	exit
 
@@ -151,6 +155,7 @@ elif [[ -n $(grep -F "$ARG" $CONFIG_FILE) ]]; then
 	clear
 	echo "SSH connection to '$SERV' via port $SSHP with login: '$U_NAME'"
 	echo -e "Tunneling to the following machine(s):\n $WRK_CLN\n\n$WARNING"
+	echo "$STOPPING"
 
 	# And let's connect
 	ssh -N -p $SSHP -c 3des $U_NAME@$SERV $WRK_DTY
