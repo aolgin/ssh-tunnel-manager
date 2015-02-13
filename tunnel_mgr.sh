@@ -81,7 +81,7 @@ if [ -z $ARG ]; then
 				break
 			else
 				# if the grep found, re-prompt
-				clean 	# clear the terminal so this is more noticeable and looks better
+				clear 	# clear the terminal so this is more noticeable and looks better
 				echo -e "There is an existing configuration with that name.\nPlease pick another.\n"
 			fi
 		done
