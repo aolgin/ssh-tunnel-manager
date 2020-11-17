@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 #########################################
 # Script to setup and run an SSH Tunnel #
